@@ -19,7 +19,7 @@ from rag.search_pdf import get_matching_chunks
 # Default Model
 DEFAULT_MODEL = "llama3.2:latest"
 
-def ask(query_text: str, model: str = DEFAULT_MODEL, min_score: float = 0.30, max_chunks: int = 5) -> dict:
+def ask(query_text: str, model: str = DEFAULT_MODEL, min_score: float = 0.30, max_chunks: int = 2) -> dict:
     """
     Run a RAG query against the ChromaDB vector store and synthesize an answer
     via Ollama.
