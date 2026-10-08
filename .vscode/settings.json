@@ -1,0 +1,10 @@
+{
+  "python.defaultInterpreterPath": "C:\\Users\\marco\\AppData\\Local\\Programs\\Python\\Python310\\python.exe",
+  "python.envFile": "${workspaceFolder}/backend/.env",
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/*.pyc": true
+  }
+}
+
+

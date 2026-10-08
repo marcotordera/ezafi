@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  # 1. Self-Hosted Ollama AI Engine
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ezafi-ollama
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+
+  # 2. ezAFI FastAPI Backend & ChromaDB RAG Vector Store
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: ezafi-backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+    depends_on:
+      - ollama
+
+volumes:
+  ollama_data:
