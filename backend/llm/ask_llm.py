@@ -17,7 +17,7 @@ import ollama
 from rag.search_pdf import get_matching_chunks
 
 # Default Model
-DEFAULT_MODEL = "llama3.2:latest"
+DEFAULT_MODEL = "llama3.2:1b"
 
 def ask(query_text: str, model: str = DEFAULT_MODEL, min_score: float = 0.30, max_chunks: int = 2) -> dict:
     """
