@@ -25,5 +25,14 @@ services:
     depends_on:
       - ollama
 
+  # 3. Cloudflare Tunnel (Binds backend to ezafi.marcotordera.com with automatic HTTPS)
+  tunnel:
+    image: cloudflare/cloudflared:latest
+    container_name: ezafi-tunnel
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TUNNEL_TOKEN}
+    depends_on:
+      - backend
+
 volumes:
   ollama_data:
