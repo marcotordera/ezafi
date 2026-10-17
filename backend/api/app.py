@@ -75,6 +75,23 @@ def get_documents():
     return get_indexed_docs_data()
 
 
+@app.get("/documents/{filename}/download", tags=["Documents"])
+def download_document(filename: str):
+    """
+    Streams the requested official or custom AFI PDF directly for viewing/downloading.
+    """
+    file_path = (BACKEND_DIR / "pdfs" / filename).resolve()
+    # Security: Ensure path doesn't escape pdfs/
+    if not str(file_path).startswith(str((BACKEND_DIR / "pdfs").resolve())) or not file_path.exists():
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Publication PDF not found")
+    from starlette.responses import FileResponse
+    return FileResponse(
+        path=str(file_path),
+        media_type="application/pdf",
+        filename=filename,
+    )
+
+
 @app.post("/ask", response_model=AskResponse, tags=["Q&A"])
 def ask_question(req: AskRequest):
     try:
